@@ -6,9 +6,9 @@ from app.models.schemas import ProductResponse
 from app.services.scraper import scrape_product_data
 
 logger = logging.getLogger(__name__)
-router = APIRouter()
+router = APIRouter(prefix='/product')
 
-@router.post("/product/{product_id}", response_model=ProductResponse)
+@router.post("/search-by-id/{product_id}", response_model=ProductResponse)
 async def get_product_by_id(
     product_id: int = Path(..., description="The product ID from 1688.com")
 ):

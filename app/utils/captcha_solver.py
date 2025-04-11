@@ -8,6 +8,14 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 logger = logging.getLogger(__name__)
 
+def is_captcha_page(driver):
+    """Check if we're on a dedicated captcha page by looking at the title."""
+    try:
+        return "Captcha Interception" in driver.title
+    except:
+        # Fallback if we can't access the title for some reason
+        return False
+
 def solve_captcha(driver):
     """Attempt to solve the slider captcha."""
     logger.info("Attempting to solve captcha...")
@@ -49,15 +57,9 @@ def solve_captcha(driver):
         action.release().perform()
         time.sleep(2)  # Wait for verification to complete
         
-        # Check if captcha was successfully solved
-        # This is a simple check for the presence of the script tag we need
-        page_source = driver.page_source
-        if "window.__GLOBAL_DADA" in page_source or "window.GLOBAL_DADA" in page_source:
-            logger.info("Captcha solved successfully")
-            return True
-        else:
-            logger.warning("Captcha may not have been solved correctly")
-            return False
+        driver.refresh()
+        return True
+    
     except Exception as e:
         logger.error(f"Error solving captcha: {e}")
         return False

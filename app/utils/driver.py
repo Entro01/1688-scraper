@@ -8,7 +8,6 @@ def get_driver():
     """Initialize and return an undetected-chromedriver which handles version issues better."""
     try:
         options = uc.ChromeOptions()
-        # options.add_argument("--headless")
         
         # Add chrome options from settings
         for arg in settings.CHROME_DRIVER_ARGS:

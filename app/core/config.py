@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     
     # Add any environment-specific configurations here
     CHROME_DRIVER_ARGS: list = [
-        "--headless"
+        # "--headless"
         "--no-sandbox",
         "--disable-dev-shm-usage",
         "--window-size=1920,1080"
